@@ -1,0 +1,27 @@
+//----------------- HEADER E CONTENT -----------------//
+
+
+ion-content {
+  background: #62ceff;
+}
+
+ion-toolbar {
+  --background: white;
+}
+
+
+//---------------- FORMS------------------------------//
+
+.login-form {
+  padding: 20px 30px;
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  background-color: #62ceff;
+}
+
+
+// ------------------- BOTOES ---------------------//

@@ -1,0 +1,23 @@
+<ion-content class="back">
+  <div class="login-form">
+    <form method="post" [formGroup]="form">
+      <ion-item lines="none">
+        <ion-label>CPF:</ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-input formControlName="user" type="text" name="cpf" placeholder="Insira seu cpf"
+                   class="inputs"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>Senha:</ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-input formControlName="password" type="password" name="senha" placeholder="Insira sua senha"
+                   class="inputs"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-button type="submit" (click)="login()"><strong>Entrar</strong></ion-button>
+      </ion-item>
+    </form>
+  </div>
+</ion-content>

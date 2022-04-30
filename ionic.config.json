@@ -1,0 +1,7 @@
+{
+  "name": "gevalucas-rentcars",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
