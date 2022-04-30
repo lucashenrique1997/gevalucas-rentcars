@@ -1,17 +1,39 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      RESERVA
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+<ion-content [fullscreen]="true" [formGroup]="form">
+  <div class="center-box">
+    <ion-item lines="none">
+      <ion-label class="label">Data de retirada:</ion-label>
+      <ion-input formControlName="outDate" placeholder="dd/mm/yyyy"></ion-input>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label class="label">Data de devolução:</ion-label>
+      <ion-input formControlName="returnDate" placeholder="dd/mm/yyyy"></ion-input>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label class="label">Selecione a categoria do veículo:</ion-label>
+      <ion-select formControlName="category" value="E1">
+        <ion-select-option value="E1">E1</ion-select-option>
+        <ion-select-option value="E2">E2</ion-select-option>
+        <ion-select-option value="E3">E3</ion-select-option>
+        <ion-select-option value="S1">S1</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label class="label">Selecione Veículo:</ion-label>
+      <ion-select formControlName="car">
+        <ion-select-option value="1">Fuscao</ion-select-option>
+        <ion-select-option value="2">Subaru</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-button type="submit" (click)="bookVehicle()"><strong>Reservar</strong></ion-button>
+    </ion-item>
+  </div>
 </ion-content>

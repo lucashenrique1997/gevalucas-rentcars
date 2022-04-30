@@ -1,17 +1,36 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      RETIRADA
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+<ion-content [fullscreen]="true" [formGroup]="form">
+  <div class="center-box">
+    <ion-item lines="none">
+      <ion-label class="label">Identificação da Reserva:</ion-label>
+      <ion-input formControlName="id" placeholder="234234"></ion-input>
+      <ion-button (click)="search()"><strong>Buscar</strong></ion-button>
+    </ion-item>
+    <ion-item *ngIf="hasInfo">
+      <ion-label class="label">Data de retirada: 12/12/22</ion-label>
+    </ion-item>
+    <ion-item *ngIf="hasInfo">
+      <ion-label class="label">Data de Devolução: 15/12/22</ion-label>
+    </ion-item>
+    <ion-item *ngIf="hasInfo">
+      <ion-label class="label">Categoria do Veículo: E1</ion-label>
+    </ion-item>
+    <ion-item *ngIf="hasInfo">
+      <ion-label class="label">Veículo: Subaru</ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label class="label">Notas adicionais:</ion-label>
+      <ion-input formControlName="notes" placeholder="234234"></ion-input>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-button type="submit" (click)="pickUpVehicle()"><strong>Efetuar Retirada</strong></ion-button>
+    </ion-item>
+  </div>
 </ion-content>
