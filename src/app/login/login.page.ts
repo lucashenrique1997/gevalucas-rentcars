@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {BackendService} from "../services/backend.service";
+import {User} from "../models/User";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -12,6 +15,8 @@ export class LoginPage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private backendService: BackendService,
+    public router: Router
   ) {
   }
 
@@ -28,7 +33,10 @@ export class LoginPage implements OnInit {
   }
 
   login() {
-    console.log('oi');
+    this.backendService.login(this.form.value.user, this.form.value.password).subscribe(async (value: User) => {
+      console.log(value);
+      await this.router.navigateByUrl('/', { state: value });
+    });
   }
 
 }

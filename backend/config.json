@@ -1,0 +1,6 @@
+{
+  "host": "gevalucas-rentcars-dev.ckrge4acbczy.sa-east-1.rds.amazonaws.com",
+  "user": "admin",
+  "database": "gevalucas_rentcars",
+  "password": "password"
+}

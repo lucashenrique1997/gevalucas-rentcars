@@ -18,18 +18,14 @@
     </ion-item>
     <ion-item lines="none">
       <ion-label class="label">Selecione a categoria do veículo:</ion-label>
-      <ion-select formControlName="category" value="E1">
-        <ion-select-option value="E1">E1</ion-select-option>
-        <ion-select-option value="E2">E2</ion-select-option>
-        <ion-select-option value="E3">E3</ion-select-option>
-        <ion-select-option value="S1">S1</ion-select-option>
+      <ion-select formControlName="category" value="E1" (ionChange)="updateCarsList()">
+        <ion-select-option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item lines="none">
       <ion-label class="label">Selecione Veículo:</ion-label>
       <ion-select formControlName="car">
-        <ion-select-option value="1">Fuscao</ion-select-option>
-        <ion-select-option value="2">Subaru</ion-select-option>
+        <ion-select-option *ngFor="let car of cars" value="{{car.id}}">{{car.model}}</ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item lines="none">
