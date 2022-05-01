@@ -13,8 +13,8 @@ router.get('/category', categoryController.listCategories);
 
 router.get('/rent', rentController.listRents);
 router.post('/rent', rentController.makeReservation);
-router.post('/rent/:id', rentController.deliverCar);
-router.delete('/rent/:id', rentController.receiveCar);
+router.post('/rent/deliver/:id', rentController.deliverCar);
+router.post('/rent/receive/:id', rentController.receiveCar);
 
 router.post('/login', userController.login);
 

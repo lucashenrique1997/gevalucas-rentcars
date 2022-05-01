@@ -35,6 +35,18 @@ export class BackendService {
     return this.http.get<Car[]>(this.url + '/car?categoryId=' + categoryId);
   }
 
+  createRent(carId: number, userId: number, initialDate: string, endDate: string) {
+    return this.http.post<number>(this.url + '/rent', {carId, userId, initialDate, endDate});
+  }
+
+  deliverCar(rentId: number, notes: string) {
+    return this.http.post(this.url + '/rent/deliver/' + rentId, {notes});
+  }
+
+  receiveCar(rentId: number, notes: string) {
+    return this.http.post(this.url + '/rent/receive/' + rentId, {notes});
+  }
+
   // post(item: Partial<Grocery>): Observable<any> {
   //   return this.http
   //     .post<Partial<Grocery>>(this.url, item, this.httpOptions);

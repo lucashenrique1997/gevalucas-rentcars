@@ -50,8 +50,8 @@ export class Tab1Page implements OnInit {
   }
 
   bookVehicle() {
-    console.log(this.form.getRawValue());
-    console.log('reservation');
+    //todo get userId correctly
+    this.backendService.createRent(this.form.value.car, 1, this.form.value.outDate, this.form.value.returnDate).subscribe((result: number) => console.log(result));
   }
 
 }

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {BackendService} from "../services/backend.service";
 
 @Component({
   selector: 'app-tab2',
@@ -12,6 +13,7 @@ export class Tab2Page implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private backendService: BackendService
   ) {
   }
 
@@ -28,7 +30,9 @@ export class Tab2Page implements OnInit {
   }
 
   pickUpVehicle() {
-    console.log(this.form.getRawValue());
+    this.backendService.deliverCar(this.form.value.id, this.form.value.notes).subscribe(() => {
+      console.log('delivered');
+    });
   }
 
   search() {
