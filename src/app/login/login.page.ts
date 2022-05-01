@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {BackendService} from "../services/backend.service";
 import {User} from "../models/User";
 import {Router} from "@angular/router";
+import {OverlayService} from "../../services/overlay.service";
 
 
 @Component({
@@ -16,7 +17,8 @@ export class LoginPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private backendService: BackendService,
-    public router: Router
+    public router: Router,
+    private overlayService: OverlayService
   ) {
   }
 
@@ -32,11 +34,21 @@ export class LoginPage implements OnInit {
     );
   }
 
-  login() {
-    this.backendService.login(this.form.value.user, this.form.value.password).subscribe(async (value: User) => {
-      console.log(value);
-      await this.router.navigateByUrl('/', { state: value });
-    });
+  async login() {
+    const loading = await this.overlayService.loading();
+    try {
+      this.backendService.login(this.form.value.user, this.form.value.password).subscribe(async (value: User) => {
+        console.log(value);
+        await this.router.navigateByUrl('/', {state: value});
+      });
+    } catch (e) {
+      await this.overlayService.toast({
+        message: 'Erro ao efetuar login.'
+      });
+    } finally {
+      await loading.dismiss();
+    }
+
   }
 
 }

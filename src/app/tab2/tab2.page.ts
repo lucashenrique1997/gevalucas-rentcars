@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {BackendService} from "../services/backend.service";
+import {OverlayService} from "../../services/overlay.service";
 
 @Component({
   selector: 'app-tab2',
@@ -13,7 +14,8 @@ export class Tab2Page implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private backendService: BackendService
+    private backendService: BackendService,
+    private overlayService: OverlayService
   ) {
   }
 
@@ -35,8 +37,17 @@ export class Tab2Page implements OnInit {
     });
   }
 
-  search() {
-    this.hasInfo = true;
+  async search() {
+    const loading = await this.overlayService.loading();
+    try {
+      this.hasInfo = true;
+    } catch (e) {
+      await this.overlayService.toast({
+        message: 'Reserva não encontrada.'
+      });
+    } finally {
+      await loading.dismiss();
+    }
   }
 
 }

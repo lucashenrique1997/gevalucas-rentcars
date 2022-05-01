@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {BackendService} from "../services/backend.service";
-import {Category} from "../models/Category";
-import {Car} from "../models/Car";
+import {BackendService} from '../services/backend.service';
+import {Category} from '../models/Category';
+import {Car} from '../models/Car';
+import {OverlayService} from '../../services/overlay.service';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class Tab1Page implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private backendService: BackendService,
+    private overlayService: OverlayService
   ) {
   }
 
@@ -28,7 +30,7 @@ export class Tab1Page implements OnInit {
     this.backendService.listCategories().subscribe((categories) => {
       console.log(categories);
       this.categories = categories;
-    })
+    });
   }
 
   buildForm() {
@@ -46,12 +48,27 @@ export class Tab1Page implements OnInit {
     this.backendService.listCarsByCategory(this.form.value.category).subscribe((cars) => {
       console.log(cars);
       this.cars = cars;
-    })
+    });
   }
 
-  bookVehicle() {
+  async bookVehicle() {
     //todo get userId correctly
-    this.backendService.createRent(this.form.value.car, 1, this.form.value.outDate, this.form.value.returnDate).subscribe((result: number) => console.log(result));
+    const loading = await this.overlayService.loading();
+    try {
+      this.backendService.createRent(this.form.value.car, 1, this.form.value.outDate, this.form.value.returnDate)
+        .subscribe(async (result: number) => {
+          console.log(result);
+          await this.overlayService.toast({
+            message: 'Reserva Efetuada com Sucesso!'
+          });
+        });
+    } catch (e) {
+      await this.overlayService.toast({
+        message: 'Erro ao efetuar login.'
+      });
+    } finally {
+      await loading.dismiss();
+    }
   }
 
 }
