@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {BackendService} from "../services/backend.service";
 import {OverlayService} from "../../services/overlay.service";
+import {Rent} from "../models/Rent";
+import * as moment from "moment";
 
 @Component({
   selector: 'app-tab3',
@@ -10,6 +12,7 @@ import {OverlayService} from "../../services/overlay.service";
 })
 export class Tab3Page implements OnInit {
   public form: FormGroup;
+  private rent: Rent;
   hasInfo = false;
 
   constructor(
@@ -39,14 +42,28 @@ export class Tab3Page implements OnInit {
 
   async search() {
     const loading = await this.overlayService.loading();
-    try {
-      this.hasInfo = true;
-    } catch (e) {
+    this.backendService.getRent(this.form.value.id).subscribe(async (rent: Rent) => {
+      if (!rent) {
+        await this.overlayService.toast({
+          message: 'Reserva não encontrada.'
+        });
+      } else {
+        this.rent = rent;
+        if (this.rent.realInitialRent)
+          this.rent.realInitialRent = moment(this.rent.realInitialRent).format('DD/MM/YYYY');
+
+        if (this.rent.endRent)
+          this.rent.endRent = moment(this.rent.endRent).format('DD/MM/YYYY');
+        this.hasInfo = true;
+      }
+      await loading.dismiss();
+    }, async error => {
+      console.log(error);
       await this.overlayService.toast({
         message: 'Reserva não encontrada.'
       });
-    } finally {
       await loading.dismiss();
-    }  }
+    });
+  }
 
 }

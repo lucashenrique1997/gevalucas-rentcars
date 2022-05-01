@@ -14,16 +14,16 @@
       <ion-button (click)="search()"><strong>Buscar</strong></ion-button>
     </ion-item>
     <ion-item *ngIf="hasInfo">
-      <ion-label class="label">Data de retirada: 12/12/22</ion-label>
+      <ion-label class="label">Data de retirada: {{rent?.realInitialRent ?? 'Veículo não retirado'}}</ion-label>
     </ion-item>
     <ion-item *ngIf="hasInfo">
-      <ion-label class="label">Data de Devolução: 15/12/22</ion-label>
+      <ion-label class="label">Data de Devolução: {{rent?.endRent ?? 'Veículo não devolvido'}}</ion-label>
     </ion-item>
     <ion-item *ngIf="hasInfo">
-      <ion-label class="label">Categoria do Veículo: E1</ion-label>
+      <ion-label class="label">Categoria do Veículo: {{rent?.category}}</ion-label>
     </ion-item>
     <ion-item *ngIf="hasInfo">
-      <ion-label class="label">Veículo: Subaru</ion-label>
+      <ion-label class="label">Veículo: {{rent?.car}}</ion-label>
     </ion-item>
     <ion-item lines="none">
       <ion-label class="label">Notas adicionais:</ion-label>

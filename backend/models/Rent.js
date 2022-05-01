@@ -2,7 +2,7 @@ const db = require('../database');
 const moment = require('moment');
 
 module.exports = class Rent {
-  constructor(id, userId, carId, initialRent, days, realInitialRent, endRent, responsibleUserId) {
+  constructor(id, userId, carId, initialRent, days, realInitialRent, endRent, responsibleUserId, price, notes, car, category) {
     this.id = id;
     this.userId = userId;
     this.carId = carId;
@@ -11,6 +11,10 @@ module.exports = class Rent {
     this.realInitialRent = realInitialRent;
     this.endRent = endRent;
     this.responsibleUserId = responsibleUserId;
+    this.price = price
+    this.notes = notes;
+    this.car = car;
+    this.category = category;
   }
 
   static async list() {
@@ -19,9 +23,9 @@ module.exports = class Rent {
   }
 
   static async get(id) {
-    const [result] = await db.execute('SELECT * FROM rents WHERE id = ?', [id]);
+    const [result] = await db.execute('SELECT r.*, cars.model, c.name FROM rents r JOIN cars ON cars.id = r.cars_id JOIN car_category c ON cars.car_category_id = c.id WHERE r.id = ?', [id]);
     const item = result[0];
-    return new Rent(item.id, item.users_id, item.cars_id, item.initial_rent_datetime, item.days, item.real_initial_rent_datetime, item.end_rent_datetime, item.responsible_user_id)
+    return new Rent(item.id, item.users_id, item.cars_id, item.initial_rent_datetime, item.days, item.real_initial_rent_datetime, item.end_rent_datetime, item.responsible_user_id, item.price, item.notes, item.model, item.name)
   }
 
   static makeReservation(carId, userId, initialRent, days, responsibleUser = undefined) {

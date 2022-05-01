@@ -7,4 +7,8 @@ export interface Rent {
   realInitialRent: string;
   endRent: string
   responsibleUserId: number;
+  price: number;
+  notes: string;
+  car: string;
+  category: string;
 }

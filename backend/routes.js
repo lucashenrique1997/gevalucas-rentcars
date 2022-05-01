@@ -12,7 +12,7 @@ router.get('/car', carController.listCars);
 router.get('/category', categoryController.listCategories);
 
 router.get('/rent', rentController.listRents);
-router.get('/rent/:id', rentController.listRents);
+router.get('/rent/:id', rentController.getRent);
 router.post('/rent', rentController.makeReservation);
 router.post('/rent/deliver/:id', rentController.deliverCar);
 router.post('/rent/receive/:id', rentController.receiveCar);
