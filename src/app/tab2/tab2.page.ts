@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {BackendService} from "../services/backend.service";
 import {OverlayService} from "../../services/overlay.service";
+import {Rent} from "../models/Rent";
 
 @Component({
   selector: 'app-tab2',
@@ -39,15 +40,16 @@ export class Tab2Page implements OnInit {
 
   async search() {
     const loading = await this.overlayService.loading();
-    try {
-      this.hasInfo = true;
-    } catch (e) {
-      await this.overlayService.toast({
-        message: 'Reserva não encontrada.'
-      });
-    } finally {
+    this.backendService.getRent(this.form.value.id).subscribe(async (rent: Rent) => {
+      if (!rent) {
+        await this.overlayService.toast({
+          message: 'Reserva não encontrada.'
+        });
+      } else {
+        this.hasInfo = true;
+      }
       await loading.dismiss();
-    }
+    });
   }
 
 }

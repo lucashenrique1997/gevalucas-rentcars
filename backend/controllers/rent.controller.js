@@ -13,6 +13,18 @@ exports.listRents = async (req, res, next) => {
   }
 };
 
+exports.getRent = async (req, res, next) => {
+  try {
+    const rent = await Rent.get(req.params.id);
+    res.status(200).json(rent);
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
+
 exports.makeReservation = async (req, res, next) => {
   try {
     const initialDate = moment(req.body.initialDate, 'DD/MM/YYYY');

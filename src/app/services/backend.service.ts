@@ -7,6 +7,7 @@ import { tap } from "rxjs/operators";
 import { User } from "../models/User";
 import {Category} from "../models/Category";
 import {Car} from "../models/Car";
+import {Rent} from "../models/Rent";
 
 @Injectable({
   providedIn: "root",
@@ -37,6 +38,10 @@ export class BackendService {
 
   createRent(carId: number, userId: number, initialDate: string, endDate: string) {
     return this.http.post<number>(this.url + '/rent', {carId, userId, initialDate, endDate});
+  }
+
+  getRent(rentId: string) {
+    return this.http.get<Rent>(this.url + '/rent/' + rentId);
   }
 
   deliverCar(rentId: number, notes: string) {
