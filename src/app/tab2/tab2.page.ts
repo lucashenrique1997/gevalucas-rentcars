@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {BackendService} from "../services/backend.service";
-import {OverlayService} from "../../services/overlay.service";
+import {BackendService} from '../services/backend.service';
+import {OverlayService} from '../../services/overlay.service';
 import {Rent} from "../models/Rent";
 import * as moment from 'moment';
 
@@ -34,10 +34,21 @@ export class Tab2Page implements OnInit {
     );
   }
 
-  pickUpVehicle() {
-    this.backendService.deliverCar(this.form.value.id, this.form.value.notes).subscribe(() => {
-      console.log('delivered');
-    });
+  async pickUpVehicle() {
+    const loading = await this.overlayService.loading();
+    try {
+      this.backendService.deliverCar(this.form.value.id, this.form.value.notes).subscribe(async () => {
+        await this.overlayService.toast({
+          message: 'Retirada realizada com sucesso.'
+        });
+      });
+    } catch (e) {
+      await this.overlayService.toast({
+        message: 'Erro ao retirar veículo.'
+      });
+    } finally {
+      await loading.dismiss();
+    }
   }
 
   async search() {

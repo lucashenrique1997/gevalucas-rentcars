@@ -13,6 +13,7 @@ import {OverlayService} from '../../services/overlay.service';
 })
 export class Tab1Page implements OnInit {
   public form: FormGroup;
+  userId;
 
   //todo use this in the select
   private categories: Category[];
@@ -23,6 +24,7 @@ export class Tab1Page implements OnInit {
     private backendService: BackendService,
     private overlayService: OverlayService
   ) {
+    this.userId = window.localStorage.getItem('userId');
   }
 
   ngOnInit() {
@@ -52,10 +54,10 @@ export class Tab1Page implements OnInit {
   }
 
   async bookVehicle() {
-    //todo get userId correctly
+    console.log('user id =', this.userId);
     const loading = await this.overlayService.loading();
     try {
-      this.backendService.createRent(this.form.value.car, 1, this.form.value.outDate, this.form.value.returnDate)
+      this.backendService.createRent(this.form.value.car, this.userId, this.form.value.outDate, this.form.value.returnDate)
         .subscribe(async (result: number) => {
           console.log(result);
           await this.overlayService.toast({
