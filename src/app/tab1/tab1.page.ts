@@ -48,7 +48,7 @@ export class Tab1Page implements OnInit {
 
   updateCarsList() {
     this.backendService.listCarsByCategory(this.form.value.category).subscribe((cars) => {
-      console.log(cars);
+      console.log('cars = ', cars);
       this.cars = cars;
     });
   }
